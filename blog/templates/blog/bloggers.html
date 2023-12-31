@@ -1,0 +1,12 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+<h1>Bloggers</h1>
+<ul>
+	{% for blogger in bloggers %}
+		<li>
+			<a href="{% url 'blogger' blogger.pk %}">{{ blogger.user.username }}</a>
+		</li>
+	{% endfor %}
+</ul>
+{% endblock content %}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Django Blog</title>
+</head>
+<style>
+	#sidebar {
+		float: left;
+		width: 150px;
+		height: 100vh;
+	}
+</style>
+<body>
+	<div id="sidebar">
+		<a href="{% url 'index' %}">Home</a> <br>
+		<a href="{% url 'bloggers' %}">All Bloggers</a> <br>
+		<br>
+		{% if user.is_authenticated %}
+			<span>User: {{ user.get_username }}</span>
+		{% else %}
+			<a href="">Login</a>
+		{% endif %}
+		<br>
+		<a href="">Logout</a>
+	</div>
+	{% block content %}
+	{% endblock content %}
+</body>
+</html>
