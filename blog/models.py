@@ -17,5 +17,6 @@ class Blog(models.Model):
 
 class Comment(models.Model):
 	author = models.ForeignKey(User, on_delete=models.CASCADE)
+	blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
 	time = models.DateTimeField()
 	content = models.TextField()
