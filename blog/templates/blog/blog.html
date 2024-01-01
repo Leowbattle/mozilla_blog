@@ -7,12 +7,17 @@
 <p>{{ blog.content }}</p>
 <hr>
 <div id="comments">
-	Comments
+	<span>Comments</span><br>
 
 	{% if user.is_authenticated %}
-		logged in
+		<form action="{% url 'submit_comment' blog.pk %}?next={{request.path}}" method="post">
+			{% csrf_token %}
+			<label for="comment-text">Leave a comment</label><br>
+			<textarea name="comment-text" id="comment-text" cols="80" rows="10" minlength="1" required></textarea><br>
+			<input type="submit" value="Post">
+		</form>
 	{% else %}
-		please log in
+		<span>Please log in to comment</span>
 	{% endif %}
 
 	{% for comment in blog.get_all_comments %}

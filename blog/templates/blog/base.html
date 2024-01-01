@@ -16,6 +16,11 @@
 
 	#content {
 		padding-left: 50px;
+		flex-grow: 1;
+	}
+
+	.comment {
+		border: 1px solid black;
 	}
 </style>
 <body>
@@ -28,7 +33,7 @@
 			<br>
 			<form method="post" action="{% url 'logout' %}?next={{request.path}}">
 				{% csrf_token %}
-				<button type="submit">Logout</button>
+				<input type="submit" value="Logout">
 			</form>
 		{% else %}
 			<a href="{% url 'login' %}?next={{request.path}}">Login</a>

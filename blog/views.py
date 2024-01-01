@@ -1,5 +1,9 @@
+from datetime import datetime
+from django.http import HttpResponse
+from django.shortcuts import redirect
 from django.views import generic
 from .models import Profile, Blog, Comment
+from django.contrib.auth.decorators import login_required
 
 class IndexView(generic.ListView):
 	template_name = "blog/index.html"
@@ -24,3 +28,10 @@ class BlogView(generic.DetailView):
 	model = Blog
 	context_object_name = "blog"
 	template_name = "blog/blog.html"
+
+@login_required
+def submit_comment(request, blogid):
+	text = request.POST.get("comment-text")
+	blog = Blog.objects.get(pk=blogid)
+	comment = Comment.objects.create(author=request.user, blog=blog, time=datetime.now(), content=text)
+	return redirect(request.GET["next"])
