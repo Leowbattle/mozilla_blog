@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.views import generic
 from .models import Profile, Blog, Comment
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
 class IndexView(generic.ListView):
@@ -33,5 +34,5 @@ class BlogView(generic.DetailView):
 def submit_comment(request, blogid):
 	text = request.POST.get("comment-text")
 	blog = Blog.objects.get(pk=blogid)
-	comment = Comment.objects.create(author=request.user, blog=blog, time=datetime.now(), content=text)
+	Comment.objects.create(author=request.user, blog=blog, time=datetime.now(), content=text)
 	return redirect(request.GET["next"])

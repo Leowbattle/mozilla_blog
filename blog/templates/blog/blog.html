@@ -3,7 +3,7 @@
 {% block content %}
 <h1>{{ blog.title }}</h1>
 <b>Date: </b> {{ blog.time.date }} <br>
-<b>Author: </b> <a href="{% url 'blogger' blog.author.pk %}">{{ blog.author }}</a>
+<b>Author: </b> <a href="{% url 'blogger' blog.author.profile.pk %}">{{ blog.author }}</a>
 <p>{{ blog.content }}</p>
 <hr>
 <div id="comments">
