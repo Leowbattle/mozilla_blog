@@ -37,6 +37,8 @@
 			</form>
 		{% else %}
 			<a href="{% url 'login' %}?next={{request.path}}">Login</a>
+			<br>
+			<a href="{% url 'register' %}?next={{request.path}}">Register</a>
 		{% endif %}
 	</div>
 	<div id="content">
