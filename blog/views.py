@@ -1,27 +1,26 @@
-from django.http import HttpResponse
-from django.shortcuts import render
-from django.views.generic.detail import DetailView
-
+from django.views import generic
 from .models import Profile, Blog, Comment
 
-def index(request):
-	blogs = Blog.objects.all().order_by("-time")#[:5]
-	context = { "blogs": blogs }
-	return render(request, "blog/index.html", context)
+class IndexView(generic.ListView):
+	template_name = "blog/index.html"
+	context_object_name = "blogs"
 
-def bloggers(request):
-	bloggers = Profile.objects.all()
-	context = { "bloggers": bloggers }
-	return render(request, "blog/bloggers.html", context)
+	def get_queryset(self):
+		return Blog.objects.all().order_by("-time")
 
-def blogger(request, id):
-	context = { "id": id }
-	return render(request, "blog/blogger.html", context)
+class BloggersView(generic.ListView):
+	template_name = "blog/bloggers.html"
+	context_object_name = "bloggers"
 
-class BlogView(DetailView):
+	def get_queryset(self):
+		return Profile.objects.all()
+
+class BloggerView(generic.DetailView):
+	model = Profile
+	context_object_name = "blogger"
+	template_name = "blog/blogger.html"
+
+class BlogView(generic.DetailView):
 	model = Blog
-
-# def blog(request, id):
-# 	blog = Blog.objects.get(pk=id)
-# 	context = { "blog": blog }
-# 	return render(request, "blog/blog.html", context)
+	context_object_name = "blog"
+	template_name = "blog/blog.html"

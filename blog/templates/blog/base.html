@@ -6,10 +6,16 @@
 	<title>Django Blog</title>
 </head>
 <style>
-	#sidebar {
-		float: left;
-		width: 150px;
-		height: 100vh;
+	html {
+		font-family: Arial;
+	}
+
+	body {
+		display: flex;
+	}
+
+	#content {
+		padding-left: 50px;
 	}
 </style>
 <body>
@@ -19,13 +25,18 @@
 		<br>
 		{% if user.is_authenticated %}
 			<span>User: {{ user.get_username }}</span>
+			<br>
+			<form method="post" action="{% url 'logout' %}">
+				{% csrf_token %}
+				<button type="submit">Logout</button>
+			</form>
 		{% else %}
-			<a href="">Login</a>
+			<a href="{% url 'login' %}">Login</a>
 		{% endif %}
-		<br>
-		<a href="">Logout</a>
 	</div>
-	{% block content %}
-	{% endblock content %}
+	<div id="content">
+		{% block content %}
+		{% endblock content %}
+	</div>
 </body>
 </html>

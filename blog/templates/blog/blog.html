@@ -1,0 +1,27 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+<h1>{{ blog.title }}</h1>
+<b>Date: </b> {{ blog.time.date }} <br>
+<b>Author: </b> <a href="{% url 'blogger' blog.author.pk %}">{{ blog.author }}</a>
+<p>{{ blog.content }}</p>
+<hr>
+<div id="comments">
+	Comments
+
+	{% if user.is_authenticated %}
+		logged in
+	{% else %}
+		please log in
+	{% endif %}
+
+	{% for comment in blog.get_all_comments %}
+	<div class="comment">
+		<a href="{% url 'blogger' comment.author.pk %}">{{ comment.author }}</a>
+		<span>{{ comment.time.date }}</span>
+		<p>{{ comment.content }}</p>
+	</div>
+	{% endfor %}
+</div>
+
+{% endblock content %}
